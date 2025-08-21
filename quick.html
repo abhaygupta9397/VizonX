@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick Sort — VizionX (CTC)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+      background: #111;
+      color: #eee;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #42f47b;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: center;
+      color: #eee;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    th {
+      background-color: #222;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #f8f8f2;
+    }
+    code {
+      font-family: monospace;
+    }
+    .code-section {
+      margin-top: 40px;
+    }
+    .selector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select {
+      background: #222;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quick Sort</h1>
+
+  <p>
+    Quick Sort is a highly efficient divide-and-conquer sorting algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+  </p>
+  <p>
+    Quick Sort is often faster in practice than other O(n log n) algorithms due to its cache efficiency and in-place sorting. However, its worst-case time complexity is O(n²), which occurs when the smallest or largest element is always chosen as the pivot.
+  </p>
+  <p>
+    With good pivot selection (such as using the median or randomization), Quick Sort is one of the fastest sorting algorithms for large datasets.
+  </p>
+
+  <h2>Time Complexity</h2>
+  <table>
+    <thead>
+      <tr><th>Case</th><th>Time Complexity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Best</td><td>O(n log n)</td></tr>
+      <tr><td>Average</td><td>O(n log n)</td></tr>
+      <tr><td>Worst</td><td>O(n²)</td></tr>
+    </tbody>
+  </table>
+
+  <section class="code-section">
+    <h2>Code Examples</h2>
+    <div class="selector">
+      <label for="lang">Choose Language: </label>
+      <select id="lang" onchange="showCode()">
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="js">JavaScript</option>
+      </select>
+    </div>
+
+    <div id="python" class="code-block">
+      <pre><code># Python - quick sort
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)</code></pre>
+    </div>
+
+    <div id="cpp" class="code-block" style="display:none;">
+      <pre><code>// C++ - quick sort
+#include &lt;vector&gt;
+using namespace std;
+
+int partition(vector&lt;int&gt;&amp; arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector&lt;int&gt;&amp; arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}</code></pre>
+    </div>
+
+    <div id="java" class="code-block" style="display:none;">
+      <pre><code>// Java - quick sort
+public class QuickSort {
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+    public static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        return i + 1;
+    }
+}</code></pre>
+    </div>
+
+    <div id="js" class="code-block" style="display:none;">
+      <pre><code>// JavaScript - quick sort
+function quickSort(arr) {
+  if (arr.length <= 1) return arr;
+  const pivot = arr[arr.length - 1];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] < pivot) left.push(arr[i]);
+    else right.push(arr[i]);
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}</code></pre>
+    </div>
+  </section>
+
+  <script>
+    function showCode() {
+      let selected = document.getElementById("lang").value;
+      document.querySelectorAll(".code-block").forEach(block => block.style.display = "none");
+      document.getElementById(selected).style.display = "block";
+    }
+  </script>
+</body>
+</html>

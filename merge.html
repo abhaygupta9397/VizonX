@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merge Sort — VizionX (CTC)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+      background: #111;
+      color: #eee;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #f1f16b;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: center;
+      color: #eee;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    th {
+      background-color: #222;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #f8f8f2;
+    }
+    code {
+      font-family: monospace;
+    }
+    .code-section {
+      margin-top: 40px;
+    }
+    .selector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select {
+      background: #222;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Merge Sort</h1>
+
+  <p>
+    Merge Sort is a classic divide-and-conquer sorting algorithm. It divides the input array into two halves, recursively sorts each half, and then merges the sorted halves to produce the final sorted array.
+  </p>
+  <p>
+    Merge Sort is stable and guarantees O(n log n) time complexity in all cases. It is efficient for large datasets and is often used in external sorting (sorting data that doesn't fit in memory). However, it requires additional memory for the temporary arrays used during merging.
+  </p>
+  <p>
+    Merge Sort is not an in-place algorithm, but its predictable performance and stability make it a popular choice for many applications.
+  </p>
+
+  <h2>Time Complexity</h2>
+  <table>
+    <thead>
+      <tr><th>Case</th><th>Time Complexity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Best</td><td>O(n log n)</td></tr>
+      <tr><td>Average</td><td>O(n log n)</td></tr>
+      <tr><td>Worst</td><td>O(n log n)</td></tr>
+    </tbody>
+  </table>
+
+  <section class="code-section">
+    <h2>Code Examples</h2>
+    <div class="selector">
+      <label for="lang">Choose Language: </label>
+      <select id="lang" onchange="showCode()">
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="js">JavaScript</option>
+      </select>
+    </div>
+
+    <div id="python" class="code-block">
+      <pre><code># Python - merge sort
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+        merge_sort(L)
+        merge_sort(R)
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+    return arr</code></pre>
+    </div>
+
+    <div id="cpp" class="code-block" style="display:none;">
+      <pre><code>// C++ - merge sort
+#include &lt;vector&gt;
+using namespace std;
+
+void merge(vector&lt;int&gt;&amp; arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    vector&lt;int&gt; L(n1), R(n2);
+    for (int i = 0; i < n1; i++) L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSort(vector&lt;int&gt;&amp; arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}</code></pre>
+    </div>
+
+    <div id="java" class="code-block" style="display:none;">
+      <pre><code>// Java - merge sort
+public class MergeSort {
+    public static void mergeSort(int[] arr, int l, int r) {
+        if (l < r) {
+            int m = l + (r - l) / 2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            merge(arr, l, m, r);
+        }
+    }
+    public static void merge(int[] arr, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+        for (int i = 0; i < n1; i++) L[i] = arr[l + i];
+        for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+        int i = 0, j = 0, k = l;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) arr[k++] = L[i++];
+            else arr[k++] = R[j++];
+        }
+        while (i < n1) arr[k++] = L[i++];
+        while (j < n2) arr[k++] = R[j++];
+    }
+}</code></pre>
+    </div>
+
+    <div id="js" class="code-block" style="display:none;">
+      <pre><code>// JavaScript - merge sort
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+function merge(left, right) {
+  let result = [], i = 0, j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] < right[j]) result.push(left[i++]);
+    else result.push(right[j++]);
+  }
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}</code></pre>
+    </div>
+  </section>
+
+  <script>
+    function showCode() {
+      let selected = document.getElementById("lang").value;
+      document.querySelectorAll(".code-block").forEach(block => block.style.display = "none");
+      document.getElementById(selected).style.display = "block";
+    }
+  </script>
+</body>
+</html>

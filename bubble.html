@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bubble Sort — VizionX (CTC)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+      background: #111;
+      color: #eee;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #4da6ff;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: center;
+      color: #eee;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    th {
+      background-color: #222;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #f8f8f2;
+    }
+    code {
+      font-family: monospace;
+    }
+    .code-section {
+      margin-top: 40px;
+    }
+    .selector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select {
+      background: #222;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bubble Sort</h1>
+
+  <p>
+    Bubble Sort is one of the simplest sorting algorithms: it repeatedly steps through the list, compares adjacent elements, and swaps them if they are out of order. Its name comes from how larger elements "bubble" to the end of the list over multiple iterations.
+  </p>
+  <p>
+    Bubble Sort is easy to understand and implement, making it a staple in algorithm education. It excels at sorting small or nearly-sorted datasets due to its adaptive nature—if a pass results in no swaps, the list is already sorted and the process can terminate early.
+  </p>
+  <p>
+    However, Bubble Sort is inefficient for large, random datasets. Its time complexity in the average and worst cases is quadratic—O(n²)—making it significantly slower than more advanced algorithms like QuickSort or Merge Sort.
+  </p>
+
+  <h2>Time Complexity</h2>
+  <table>
+    <thead>
+      <tr><th>Case</th><th>Time Complexity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Best (already sorted with optimization)</td><td>O(n)</td></tr>
+      <tr><td>Average</td><td>O(n²)</td></tr>
+      <tr><td>Worst</td><td>O(n²)</td></tr>
+    </tbody>
+  </table>
+
+  <section class="code-section">
+    <h2>Code Examples</h2>
+    <div class="selector">
+      <label for="lang">Choose Language: </label>
+      <select id="lang" onchange="showCode()">
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="js">JavaScript</option>
+      </select>
+    </div>
+
+    <div id="python" class="code-block">
+      <pre><code># Python - optimized bubble sort
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr</code></pre>
+    </div>
+
+    <div id="cpp" class="code-block" style="display:none;">
+      <pre><code>// C++ - optimized bubble sort
+#include &lt;vector&gt;
+using namespace std;
+
+void bubbleSort(vector&lt;int&gt;&amp; arr) {
+    int n = arr.size();
+    for (int i = 0; i &lt; n; i++) {
+        bool swapped = false;
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break;
+    }
+}</code></pre>
+    </div>
+
+    <div id="java" class="code-block" style="display:none;">
+      <pre><code>// Java - optimized bubble sort
+public class BubbleSort {
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i &lt; n; i++) {
+            boolean swapped = false;
+            for (int j = 0; j &lt; n - i - 1; j++) {
+                if (arr[j] &gt; arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div id="js" class="code-block" style="display:none;">
+      <pre><code>// JavaScript - optimized bubble sort
+function bubbleSort(arr) {
+  const n = arr.length;
+  for (let i = 0; i &lt; n; i++) {
+    let swapped = false;
+    for (let j = 0; j &lt; n - i - 1; j++) {
+      if (arr[j] &gt; arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        swapped = true;
+      }
+    }
+    if (!swapped) break;
+  }
+  return arr;
+}</code></pre>
+    </div>
+  </section>
+
+  <script>
+    function showCode() {
+      let selected = document.getElementById("lang").value;
+      document.querySelectorAll(".code-block").forEach(block => block.style.display = "none");
+      document.getElementById(selected).style.display = "block";
+    }
+  </script>
+</body>
+</html>

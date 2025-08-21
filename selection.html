@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selection Sort — VizionX (CTC)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+      background: #111;
+      color: #eee;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #f1f16b;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: center;
+      color: #eee;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    th {
+      background-color: #222;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #f8f8f2;
+    }
+    code {
+      font-family: monospace;
+    }
+    .code-section {
+      margin-top: 40px;
+    }
+    .selector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select {
+      background: #222;
+      color: #eee;
+      border: 1px solid #555;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Selection Sort</h1>
+
+  <p>
+    Selection Sort is a simple comparison-based sorting algorithm. It divides the input list into two parts: the sorted part at the front and the unsorted part at the back. On each pass, it selects the smallest (or largest) element from the unsorted part and swaps it with the first unsorted element, growing the sorted part by one.
+  </p>
+  <p>
+    Selection Sort is easy to understand and implement, but it is not adaptive and always performs the same number of comparisons, regardless of the initial order of the list. It is generally slower than more advanced algorithms for large datasets.
+  </p>
+  <p>
+    Its main advantage is simplicity and minimal memory usage, as it only requires a constant amount of additional space.
+  </p>
+
+  <h2>Time Complexity</h2>
+  <table>
+    <thead>
+      <tr><th>Case</th><th>Time Complexity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Best</td><td>O(n²)</td></tr>
+      <tr><td>Average</td><td>O(n²)</td></tr>
+      <tr><td>Worst</td><td>O(n²)</td></tr>
+    </tbody>
+  </table>
+
+  <section class="code-section">
+    <h2>Code Examples</h2>
+    <div class="selector">
+      <label for="lang">Choose Language: </label>
+      <select id="lang" onchange="showCode()">
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="js">JavaScript</option>
+      </select>
+    </div>
+
+    <div id="python" class="code-block">
+      <pre><code># Python - selection sort
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr</code></pre>
+    </div>
+
+    <div id="cpp" class="code-block" style="display:none;">
+      <pre><code>// C++ - selection sort
+#include &lt;vector&gt;
+using namespace std;
+
+void selectionSort(vector&lt;int&gt;&amp; arr) {
+    int n = arr.size();
+    for (int i = 0; i < n; i++) {
+        int min_idx = i;
+        for (int j = i+1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        swap(arr[i], arr[min_idx]);
+    }
+}</code></pre>
+    </div>
+
+    <div id="java" class="code-block" style="display:none;">
+      <pre><code>// Java - selection sort
+public class SelectionSort {
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            int min_idx = i;
+            for (int j = i+1; j < n; j++) {
+                if (arr[j] < arr[min_idx]) {
+                    min_idx = j;
+                }
+            }
+            int temp = arr[i];
+            arr[i] = arr[min_idx];
+            arr[min_idx] = temp;
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div id="js" class="code-block" style="display:none;">
+      <pre><code>// JavaScript - selection sort
+function selectionSort(arr) {
+  const n = arr.length;
+  for (let i = 0; i < n; i++) {
+    let min_idx = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[min_idx]) {
+        min_idx = j;
+      }
+    }
+    [arr[i], arr[min_idx]] = [arr[min_idx], arr[i]];
+  }
+  return arr;
+}</code></pre>
+    </div>
+  </section>
+
+  <script>
+    function showCode() {
+      let selected = document.getElementById("lang").value;
+      document.querySelectorAll(".code-block").forEach(block => block.style.display = "none");
+      document.getElementById(selected).style.display = "block";
+    }
+  </script>
+</body>
+</html>
